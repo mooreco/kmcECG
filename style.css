@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  h1 {
+    margin-top: 0;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"] {
+    width: 300px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 8px 16px;
+    background-color: #4285F4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #3367D6;
+  }
+  
+  textarea,
+  input[type="text"] {
+    width: 100%;
+    resize: none;
+  }
+  
+  textarea {
+    height: 120px;
+  }
+  
+  #copyEmbedCodeButton,
+  #copyLinkButton {
+    margin-top: 10px;
+  }
+  
+  .copy-button {
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .copy-button:hover {
+    background-color: #ddd;
+  }
+  
