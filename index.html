@@ -20,6 +20,40 @@
   <input type="text" id="linkOutput" readonly>
   <button id="copyLinkButton" class="copy-button">Copy Link</button>
 
+  <hr>
+  
+  <!-- Playlist Builder Section -->
+  <h1>Playlist Builder</h1>
+  <label for="playlistIdInput">Playlist ID:</label>
+  <input type="text" id="playlistIdInput">
+  
+  <h2>Player Customization</h2>
+  <label><input type="checkbox" id="autoPlay"> Autoplay</label><br>
+  <label><input type="checkbox" id="nextPrev"> Next/Previous Buttons</label><br>
+  <label><input type="checkbox" id="streamSelector"> Enable Stream Selector</label><br>
+  <label><input type="checkbox" id="resume"> Resume Playback</label><br>
+  <label><input type="checkbox" id="scrubberPreview"> Enable Scrubber Preview</label><br>
+
+  <label for="chaptersLayout">Chapters Layout:</label>
+  <select id="chaptersLayout">
+    <option value="vertical">Vertical</option>
+    <option value="horizontal">Horizontal</option>
+  </select><br>
+
+  
+  <label for="playbackSpeed">Playback Speed Control:</label>
+  <select id="playbackSpeed">
+    <option value="true">Enabled</option>
+    <option value="false">Disabled</option>
+  </select><br>
+  
+  <button id="generatePlaylistButton">Generate Playlist Embed</button>
+  
+  <h2>Playlist Embed Code:</h2>
+  <textarea id="playlistEmbedCodeOutput" rows="5" cols="80" readonly></textarea>
+  <button id="copyPlaylistEmbedCodeButton" class="copy-button">Copy Playlist Embed Code</button>
+
+
   <script src="script.js"></script>
 </body>
 </html>
