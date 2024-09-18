@@ -9,8 +9,16 @@
   <label><input type="radio" name="videoType" value="downloadable" checked> Downloadable</label>
  <label><input type="radio" name="videoType" value="nonDownloadable"> Non-Downloadable</label>
   <label for="entryIdInput">Entry ID:</label>
-  <input type="text" id="entryIdInput">
+  <input type="text" id="entryIdInput"> <br>
+  <label for="videoWidth">Width:</label>
+  <input type="number" id="videoWidth" value="600"><br>
+
+  <label for="videoHeight">Height:</label>
+  <input type="number" id="videoHeight" value="400"><br>
   <button id="generateButton">Generate</button>
+
+  <h3>Preview:</h3>
+  <div id="videoPreview"></div>
   
   <h2>Embed Code:</h2>
   <textarea id="embedCodeOutput" rows="5" cols="80" readonly></textarea>
@@ -40,7 +48,12 @@
     <option value="horizontal">Horizontal</option>
   </select><br>
 
-  
+  <label for="frameWidth">Width:</label>
+  <input type="number" id="frameWidth" value="400"><br>
+
+  <label for="frameHeight">Height:</label>
+  <input type="number" id="frameHeight" value="620"><br>
+
   <label for="playbackSpeed">Playback Speed Control:</label>
   <select id="playbackSpeed">
     <option value="true">Enabled</option>
@@ -48,10 +61,17 @@
   </select><br>
   
   <button id="generatePlaylistButton">Generate Playlist Embed</button>
+
+  <h3>Preview: </h3>
+  <div id="playlistPreview"></div>
   
   <h2>Playlist Embed Code:</h2>
   <textarea id="playlistEmbedCodeOutput" rows="5" cols="80" readonly></textarea>
   <button id="copyPlaylistEmbedCodeButton" class="copy-button">Copy Playlist Embed Code</button>
+
+  <h2>Playlist Link:</h2>
+  <input type="text" id="playlistLinkOutput" readonly>
+  <button id="playlistCopyLinkButton" class="copy-button">Copy Link</button>
 
 
   <script src="script.js"></script>
