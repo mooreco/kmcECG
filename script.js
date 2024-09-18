@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var copyPlaylistLink = document.getElementById("playlistCopyLinkButton");
     copyPlaylistLink.addEventListener("click", copyPlaylistLink);
+
+
   });
   
   function generateEmbedCode() {
@@ -91,10 +93,12 @@ function generatePlaylistEmbedCode() {
   var iframeWidth = document.getElementById("frameWidth").value;
 
   var iframeHeight = document.getElementById("frameHeight").value;
+  var url = 'https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/'+ player +'/partner_id/1157612?iframeembed=true&playerId=' + playerId + '&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars;
   // Playlist embed code
-  var playlistEmbedCode = '<iframe id="' + playerId + '" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/'+ player +'/partner_id/1157612?iframeembed=true&playerId=' + playerId + '&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars + '" width="'+iframeWidth+'" height="'+iframeHeight+'" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>';
+  var playlistEmbedCode = '<iframe id="' + playerId + '" src="'+url+'" width="'+iframeWidth+'" height="'+iframeHeight+'" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>';
 
   document.getElementById("playlistEmbedCodeOutput").value = playlistEmbedCode;
+  document.getElementById("playlistLinkOutput").value = url;
   
   var playlistContainer =  document.getElementById("playlistPreview");
   playlistContainer.innerHTML = '';  // Clear previous preview if any
@@ -138,4 +142,19 @@ function copyPlaylistLink() {
   linkOutput.select();
   document.execCommand("copy");
 }
+
+document.getElementById("chaptersLayout").addEventListener("change", function() {
+  // Get the selected layout value
+  var selectedLayout = this.value;
+  // Log or perform any action on change
+  if(selectedLayout == "vertical") {
+    document.getElementById("frameWidth").value = 400;
+    document.getElementById("frameHeight").value = 600;
+
+  } else {
+    document.getElementById("frameWidth").value = 900;
+    document.getElementById("frameHeight").value = 400;
+  }
+  
+});
   
