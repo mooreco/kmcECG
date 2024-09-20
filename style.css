@@ -1,60 +1,287 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* General body styling */
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-  }
-  
-  h1 {
-    margin-top: 0;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input[type="text"] {
-    width: 300px;
-    padding: 5px;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    padding: 8px 16px;
-    background-color: #4285F4;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #3367D6;
-  }
-  
-  textarea,
-  input[type="text"] {
-    width: 100%;
-    resize: none;
-  }
-  
-  textarea {
-    height: 120px;
-  }
-  
-  #copyEmbedCodeButton,
-  #copyLinkButton {
-    margin-top: 10px;
-  }
-  
-  .copy-button {
-    background-color: #f1f1f1;
-    color: #333;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .copy-button:hover {
-    background-color: #ddd;
-  }
-  
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 40px 15%;
+  background: linear-gradient(127deg, rgba(101,116,124,1) 0%, rgba(57,91,112,1) 56%, rgba(43,77,106,1) 97%);
+}
+/* Styling for the nav bar */
+nav {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border-radius: 10px 10px 0 0; /* Only round top corners */
+  overflow: hidden; /* Ensure buttons stay within the rounded corners */
+}
+
+/* Styling for the navigation buttons */
+nav button {
+  flex: 1; /* Make buttons take equal space */
+  padding: 15px;
+  background-color: #888; /* Default gray color for inactive buttons */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Full width of the container */
+  text-align: center;
+  font-size: 16px;
+  border-radius: 0; /* No rounded corners on the buttons */
+  border-top-left-radius: 10px; /* Round top-left corner for the first button */
+  border-top-right-radius: 10px; /* Round top-right corner for the last button */
+}
+
+/* Remove bottom border-radius for the buttons */
+nav button:first-child {
+  border-top-left-radius: 10px;
+}
+
+nav button:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* Active button should be black */
+nav button.active {
+  background-color: #000; /* Dark black for the active button */
+}
+
+/* Hover state for buttons */
+nav button:hover {
+  background-color: #555; /* Slightly darker gray on hover for inactive buttons */
+}
+
+/* Remove margin between the buttons and the container */
+.container {
+  margin-top: 0;
+  padding-top: 0;
+  background-color: #dcdcdc;
+  padding: 5%;
+}
+
+/* Remove any spacing between the button and container */
+nav + .container {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+
+
+
+
+/* Heading 1 (h1) styling */
+h1 {
+  padding-top: 15px;
+  margin-top: 0;
+  font-family: Lora, Arial, sans-serif;
+}
+
+/* Styling for labels */
+label {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Text and number input styling */
+input[type="text"], input[type="number"] {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+  margin: 15px 0;
+}
+
+/* Focus effect for text and number inputs */
+input[type="text"]:focus, input[type="number"]:focus {
+  border: 1px solid #007BFF;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Flexbox container for dimensions inputs */
+.dimensions-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Label within dimensions container */
+.dimensions-container label {
+  margin-right: 5px;
+  margin-top: 15px;
+}
+
+/* Width adjustment for inputs in dimensions container */
+.dimensions-container input {
+  width: 20%;
+}
+
+/* Margin for dimensions container */
+.dimensions-container {
+  margin-bottom: 20px;
+}
+
+/* Margins for all inputs, buttons, and other container elements */
+.container input,
+.container button,
+.container h3,
+.container h2,
+.container hr {
+  margin-bottom: 20px;
+}
+
+
+/* Textarea margin */
+.container textarea {
+  margin-bottom: 20px;
+}
+
+/* Padding for downloadable content */
+.downloadable-container {
+  padding: 15px;
+}
+
+/* General button styling */
+button {
+  padding: 12px 25px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Textarea and text input width and resize behavior */
+textarea,
+input[type="text"] {
+  width: 100%;
+  resize: none;
+}
+
+/* Textarea height */
+textarea {
+  height: 120px;
+}
+
+/* Top margin for copy buttons */
+#copyEmbedCodeButton,
+#copyLinkButton {
+  margin-top: 10px;
+}
+
+/* Styling for copy buttons */
+.copy-button {
+  background-color: #252525;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for copy buttons */
+.copy-button:hover {
+  background-color: #444444;
+  color: white;
+}
+
+/* Custom checkbox - hiding native checkbox */
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+/* Custom checkbox container */
+.custom-checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Custom checkbox style */
+.custom-checkbox .checkbox-style {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #007BFF;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+/* Hidden checkmark inside the checkbox */
+.custom-checkbox .checkbox-style::after {
+  content: "";
+  width: 2px;
+  height: 5px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  transform: rotate(45deg);
+  display: none;
+}
+
+/* Checkbox style when checked */
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-style {
+  background-color: #007BFF;
+  border-color: #007BFF;
+}
+
+/* Show checkmark when checkbox is checked */
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-style::after {
+  display: block;
+}
+
+/* Custom select dropdown styling */
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
+  background-color: white;
+  color: #333;
+  width: 150px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Custom arrow for select dropdown */
+.custom-select {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"%3E%3Cpath fill="none" stroke="%23333" stroke-width="2" d="M8 9l4 4 4-4"/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 15px;
+}
+
+/* Hover and focus effects for custom select */
+.custom-select:hover,
+.custom-select:focus {
+  border-color: #0056b3;
+  background-color: #f0f8ff;
+  outline: none;
+}
+
+/* Margin for the generate playlist button */
+#generatePlaylistButton {
+  margin: 15px 0;
+}

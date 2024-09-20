@@ -5,20 +5,31 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+
+  <nav>
+    <button id="embedButton" class="active" onclick="showContainer('embed')">Embed Code Generator</button>
+    <button id="playlistButton" onclick="showContainer('playlist')">Playlist Builder</button>
+  </nav>
+
+  <div id="embedContainer" class="container">
   <h1>Embed Code Generator</h1>
+  <div class="downloadable-container">
   <label><input type="radio" name="videoType" value="downloadable" checked> Downloadable</label>
  <label><input type="radio" name="videoType" value="nonDownloadable"> Non-Downloadable</label><br>
+</div>
  <label for="entryIdInput">Entry ID:</label>
   <input type="text" id="entryIdInput"> <br>
 
-  
+  <div class="dimensions-container">
   <label for="videoWidth">Width:</label>
-  <input type="number" id="videoWidth" value="600"><br>
+  <input type="number" id="videoWidth" value="600">
 
   <label for="videoHeight">Height:</label>
-  <input type="number" id="videoHeight" value="400"><br>
-  <button id="generateButton">Generate</button>
+  <input type="number" id="videoHeight" value="400">
+</div>
 
+  <button id="generateButton">Generate</button>
+ 
   <h3>Preview:</h3>
   <div id="videoPreview"></div>
   
@@ -29,35 +40,62 @@
   <h2>Link:</h2>
   <input type="text" id="linkOutput" readonly>
   <button id="copyLinkButton" class="copy-button">Copy Link</button>
-
-  <hr>
   
+  </div>
+  <div id="playlistContainer" class="container" style="display: none;">
   <!-- Playlist Builder Section -->
   <h1>Playlist Builder</h1>
   <label for="playlistIdInput">Playlist ID:</label>
   <input type="text" id="playlistIdInput">
   
   <h2>Player Customization</h2>
-  <label><input type="checkbox" id="autoPlay"> Autoplay</label><br>
-  <label><input type="checkbox" id="nextPrev"> Next/Previous Buttons</label><br>
-  <label><input type="checkbox" id="streamSelector"> Enable Stream Selector</label><br>
-  <label><input type="checkbox" id="resume"> Resume Playback</label><br>
-  <label><input type="checkbox" id="scrubberPreview"> Enable Scrubber Preview</label><br>
+  <label class="custom-checkbox">
+    <input type="checkbox" id="autoPlay"> 
+    <span class="checkbox-style"></span>
+    Autoplay
+  </label><br>
+  
+  <label class="custom-checkbox">
+    <input type="checkbox" id="nextPrev">
+    <span class="checkbox-style"></span>
+    Next/Previous Buttons
+  </label><br>
+  
+  <label class="custom-checkbox">
+    <input type="checkbox" id="streamSelector">
+    <span class="checkbox-style"></span>
+    Enable Stream Selector
+  </label><br>
+  
+  <label class="custom-checkbox">
+    <input type="checkbox" id="resume">
+    <span class="checkbox-style"></span>
+    Resume Playback
+  </label><br>
+  
+  <label class="custom-checkbox">
+    <input type="checkbox" id="scrubberPreview">
+    <span class="checkbox-style"></span>
+    Enable Scrubber Preview
+  </label><br>
+  
 
   <label for="chaptersLayout">Chapters Layout:</label>
-  <select id="chaptersLayout">
+  <select id="chaptersLayout"  class="custom-select">
     <option value="vertical">Vertical</option>
     <option value="horizontal">Horizontal</option>
   </select><br>
 
+  <div class="dimensions-container">
   <label for="frameWidth">Width:</label>
-  <input type="number" id="frameWidth" value="400"><br>
+  <input type="number" id="frameWidth" value="400">
 
   <label for="frameHeight">Height:</label>
-  <input type="number" id="frameHeight" value="620"><br>
+  <input type="number" id="frameHeight" value="620">
+</div>
 
   <label for="playbackSpeed">Playback Speed Control:</label>
-  <select id="playbackSpeed">
+  <select id="playbackSpeed" class="custom-select">
     <option value="true">Enabled</option>
     <option value="false">Disabled</option>
   </select><br>
@@ -74,8 +112,7 @@
   <h2>Playlist Link:</h2>
   <input type="text" id="playlistLinkOutput" readonly>
   <button id="playlistCopyLinkButton" class="copy-button">Copy Link</button>
-
-
+</div>
   <script src="script.js"></script>
 </body>
 </html>

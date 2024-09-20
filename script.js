@@ -159,4 +159,32 @@ document.getElementById("chaptersLayout").addEventListener("change", function() 
   }
   
 });
+
+
+
+
+// Function to show the selected container
+function showContainer(container) {
+  // Hide both containers
+  document.getElementById('embedContainer').style.display = 'none';
+  document.getElementById('playlistContainer').style.display = 'none';
+
+  // Show the selected container
+  if (container === 'embed') {
+    document.getElementById('embedContainer').style.display = 'block';
+  } else if (container === 'playlist') {
+    document.getElementById('playlistContainer').style.display = 'block';
+  }
+
+  // Update active button styling
+  document.getElementById('embedButton').classList.remove('active');
+  document.getElementById('playlistButton').classList.remove('active');
+  
+  if (container === 'embed') {
+    document.getElementById('embedButton').classList.add('active');
+  } else {
+    document.getElementById('playlistButton').classList.add('active');
+  }
+}
+
   
