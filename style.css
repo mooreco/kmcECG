@@ -88,7 +88,7 @@ label {
 
 /* Text and number input styling */
 input[type="text"], input[type="number"] {
-  padding: 1.5%;
+  padding: 1.2%;
   border-radius: 10px;
   border: 1px solid #ddd;
   background: #f9f9f9;
