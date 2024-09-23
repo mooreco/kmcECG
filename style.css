@@ -18,19 +18,19 @@ nav {
 
 /* Styling for the navigation buttons */
 nav button {
-  flex: 1; /* Make buttons take equal space */
-  padding: 15px;
-  background-color: #888; /* Default gray color for inactive buttons */
+  flex: 1;
+  padding: 23px;
+  background-color: #888;
   color: white;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%; /* Full width of the container */
+  width: 100%;
   text-align: center;
   font-size: 16px;
-  border-radius: 0; /* No rounded corners on the buttons */
-  border-top-left-radius: 10px; /* Round top-left corner for the first button */
-  border-top-right-radius: 10px; /* Round top-right corner for the last button */
+  border-radius: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 /* Remove bottom border-radius for the buttons */
@@ -58,6 +58,9 @@ nav button:hover {
   padding-top: 0;
   background-color: #dcdcdc;
   padding: 5%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 10px 15px 30px -8px rgba(0,0,0,0.75);
 }
 
 /* Remove any spacing between the button and container */
@@ -85,7 +88,7 @@ label {
 
 /* Text and number input styling */
 input[type="text"], input[type="number"] {
-  padding: 10px;
+  padding: 1.5%;
   border-radius: 10px;
   border: 1px solid #ddd;
   background: #f9f9f9;
@@ -284,4 +287,8 @@ textarea {
 /* Margin for the generate playlist button */
 #generatePlaylistButton {
   margin: 15px 0;
+}
+
+#embedContainer{
+  padding: 5%;
 }
