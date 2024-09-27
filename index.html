@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Embed Code Generator</title>
+  <title>KMC Embed Code Generator</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
   </nav>
 
   <div id="embedContainer" class="container">
-  <h1>Embed Code Generator</h1>
+  <h1>KMC Embed Code Generator</h1>
   <div class="downloadable-container">
   <label><input type="radio" name="videoType" value="downloadable" checked> Downloadable</label>
  <label><input type="radio" name="videoType" value="nonDownloadable"> Non-Downloadable</label><br>
@@ -44,16 +44,11 @@
   </div>
   <div id="playlistContainer" class="container" style="display: none;">
   <!-- Playlist Builder Section -->
-  <h1>Playlist Builder</h1>
+  <h1>KMC Playlist Builder</h1>
   <label for="playlistIdInput">Playlist ID:</label>
   <input type="text" id="playlistIdInput">
   
   <h2>Player Customization</h2>
-  <label class="custom-checkbox">
-    <input type="checkbox" id="autoPlay"> 
-    <span class="checkbox-style"></span>
-    Autoplay
-  </label><br>
   
   <label class="custom-checkbox">
     <input type="checkbox" id="nextPrev">
@@ -61,17 +56,6 @@
     Next/Previous Buttons
   </label><br>
   
-  <label class="custom-checkbox">
-    <input type="checkbox" id="streamSelector">
-    <span class="checkbox-style"></span>
-    Enable Stream Selector
-  </label><br>
-  
-  <label class="custom-checkbox">
-    <input type="checkbox" id="resume">
-    <span class="checkbox-style"></span>
-    Resume Playback
-  </label><br>
   
   <label class="custom-checkbox">
     <input type="checkbox" id="scrubberPreview">
@@ -86,6 +70,12 @@
     <option value="horizontal">Horizontal</option>
   </select><br>
 
+  <label for="playbackSpeed">Playback Speed Control:</label>
+  <select id="playbackSpeed" class="custom-select">
+    <option value="true">Enabled</option>
+    <option value="false">Disabled</option>
+  </select><br>
+
   <div class="dimensions-container">
   <label for="frameWidth">Width:</label>
   <input type="number" id="frameWidth" value="400">
@@ -94,11 +84,7 @@
   <input type="number" id="frameHeight" value="620">
 </div>
 
-  <label for="playbackSpeed">Playback Speed Control:</label>
-  <select id="playbackSpeed" class="custom-select">
-    <option value="true">Enabled</option>
-    <option value="false">Disabled</option>
-  </select><br>
+  
   
   <button id="generatePlaylistButton">Generate Playlist Embed</button>
 
