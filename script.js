@@ -65,20 +65,16 @@ function generatePlaylistEmbedCode() {
   // Flashvars customization options
   var flashvars = '';
 
-  if (document.getElementById("autoPlay").checked) {
-      flashvars += '&flashvars[autoPlay]=true';
-  }
   if (document.getElementById("nextPrev").checked) {
       flashvars += '&flashvars[nextPrevBtn.plugin]=true';
+  } else {
+      flashvars += '&flashvars[nextPrevBtn.plugin]=false';
   }
-  if (document.getElementById("streamSelector").checked) {
-      flashvars += '&flashvars[streamSelector.plugin]=true';
-  }
-  if (document.getElementById("resume").checked) {
-      flashvars += '&flashvars[resume]=true';
-  }
+
   if (document.getElementById("scrubberPreview").checked) {
       flashvars += '&flashvars[scrubber.sliderPreview]=true';
+  } else {
+      flashvars += '&flashvars[scrubber.sliderPreview]=false';
   }
 
 
