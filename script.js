@@ -76,12 +76,7 @@ function getSeconds(inputValue) {
 
 
   
-  var embedCode = '<iframe id="' + playerId + '" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/' + uiconf_id + '/partner_id/1157612?iframeembed=true&playerId=' + playerId + '&entry_id=' + entryId +'" width="480" height="270" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>';
 
-  var link = 'https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/' + uiconf_id + '/partner_id/1157612?iframeembed=true&playerId=' + playerId + '&entry_id=' + entryId;
-
-  document.getElementById("embedCodeOutput").value = embedCode;
-  document.getElementById("linkOutput").value = link;
 
   var videotContainer =  document.getElementById("videoPreview");
   videotContainer.innerHTML = '';  // Clear previous preview if any
@@ -94,7 +89,6 @@ function getSeconds(inputValue) {
   var end_at = getSeconds(document.getElementById("videoEnd").value);
 
   var srcURL = `https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/${uiconf_id}/partner_id/1157612?iframeembed=true&playerId=${playerId}&entry_id=${entryId}`
-
   if(start_at > 0) {
     srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayFrom]=${start_at}`
   }
@@ -102,6 +96,13 @@ function getSeconds(inputValue) {
   if(end_at > 0) {
     srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayTo]=${end_at}`
   }
+  
+  var embedCode = `<iframe id="${playerId}" src="${srcURL}" width="${iframeWidth}" height="${iframeHeight}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>`;
+  var link = srcURL;
+
+  document.getElementById("embedCodeOutput").value = embedCode;
+  document.getElementById("linkOutput").value = link;
+
 
 
   var iframe = document.createElement('iframe');
