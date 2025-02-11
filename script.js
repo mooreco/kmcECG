@@ -40,12 +40,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
   var videotContainer =  document.getElementById("videoPreview");
   videotContainer.innerHTML = '';  // Clear previous preview if any
+  // Width and Height
   var iframeWidth = document.getElementById("videoWidth").value;
-
   var iframeHeight = document.getElementById("videoHeight").value;
 
+  // Start at and End at
+  var start_at = document.getElementById("videoStart").value;
+  var end_at = document.getElementById("videoEnd").value;
+
+  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/${uiconf_id}/partner_id/1157612?iframeembed=true&playerId=${playerId}&entry_id=${entryId}`
+
+  if(parseInt(start_at) > 0) {
+    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayFrom]=${start_at}`
+  }
+
+  if(parseInt(end_at) > 0) {
+    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayTo]=${end_at}`
+  }
+
+
   var iframe = document.createElement('iframe');
-    iframe.setAttribute('src', 'https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/' + uiconf_id + '/partner_id/1157612?iframeembed=true&playerId=' + playerId + '&entry_id=' + entryId);
+    iframe.setAttribute('src', srcURL);
     iframe.setAttribute('width', iframeWidth);
     iframe.setAttribute('height', iframeHeight);
     iframe.setAttribute('allowfullscreen', 'allowfullscreen');
