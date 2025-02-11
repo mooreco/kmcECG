@@ -168,8 +168,7 @@ button:hover {
 }
 
 /* Textarea and text input width and resize behavior */
-textarea,
-input[type="text"] {
+textarea {
   width: 100%;
   resize: none;
 }
