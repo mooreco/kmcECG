@@ -18,8 +18,53 @@ document.addEventListener("DOMContentLoaded", function() {
     var copyPlaylistLink = document.getElementById("playlistCopyLinkButton");
     copyPlaylistLink.addEventListener("click", copyPlaylistLink);
 
+    var video_start = document.getElementById("videoStart");
+    var video_end = document.getElementById("videoEnd");
+
+    timeStampValidate(video_start)
+    timeStampValidate(video_end)
+
 
   });
+
+function timeStampValidate(element) {
+  element.addEventListener("input", function (e) {
+    let value = this.value.replace(/\D/g, ""); // Remove non-numeric characters
+    let formattedValue = "";
+
+    // Apply formatting as user types
+    if (value.length > 0) {
+      formattedValue += value.substring(0, 2);
+    }
+    if (value.length > 2) {
+      formattedValue += ":" + value.substring(2, 4);
+    }
+    if (value.length > 4) {
+      formattedValue += ":" + value.substring(4, 6);
+    }
+
+    this.value = formattedValue;
+  });
+}
+
+
+function getSeconds(inputValue) {
+  var time = inputValue.trim();
+
+  const timePattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
+    
+    if (!timePattern.test(time)) {
+      console.log("Invalid time format! Please enter in HH:MM:SS format.");
+      return;
+    }
+
+    // Split into hours, minutes, and seconds
+    const [hours, minutes, seconds] = time.split(":").map(Number);
+    const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
+    console.log("Video Timestamp (Seconds):", totalSeconds);
+    return totalSeconds;
+
+}
   
   function generateEmbedCode() {
   var entryId = document.getElementById("entryIdInput").value;
@@ -40,12 +85,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
   var videotContainer =  document.getElementById("videoPreview");
   videotContainer.innerHTML = '';  // Clear previous preview if any
+  // Width and Height
   var iframeWidth = document.getElementById("videoWidth").value;
-
   var iframeHeight = document.getElementById("videoHeight").value;
 
+  // Start at and End at
+  var start_at = getSeconds(document.getElementById("videoStart").value);
+  var end_at = getSeconds(document.getElementById("videoEnd").value);
+
+  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/${uiconf_id}/partner_id/1157612?iframeembed=true&playerId=${playerId}&entry_id=${entryId}`
+
+  if(start_at > 0) {
+    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayFrom]=${start_at}`
+  }
+
+  if(end_at > 0) {
+    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayTo]=${end_at}`
+  }
+
+
   var iframe = document.createElement('iframe');
-    iframe.setAttribute('src', 'https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/' + uiconf_id + '/partner_id/1157612?iframeembed=true&playerId=' + playerId + '&entry_id=' + entryId);
+    iframe.setAttribute('src', srcURL);
     iframe.setAttribute('width', iframeWidth);
     iframe.setAttribute('height', iframeHeight);
     iframe.setAttribute('allowfullscreen', 'allowfullscreen');
