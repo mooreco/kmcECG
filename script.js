@@ -3,20 +3,28 @@ document.addEventListener("DOMContentLoaded", function() {
     generateButton.addEventListener("click", generateEmbedCode);
   
     var copyEmbedCodeButton = document.getElementById("copyEmbedCodeButton");
-    copyEmbedCodeButton.addEventListener("click", copyEmbedCode);
-  
+    copyEmbedCodeButton.addEventListener("click", function(){
+      copyToClipboard("embedCodeOutput", "embedCopyMsg");
+    });
+
     var copyLinkButton = document.getElementById("copyLinkButton");
-    copyLinkButton.addEventListener("click", copyLink);
+    copyLinkButton.addEventListener("click", function(){
+      copyToClipboard("linkOutput", "linkCopyMsg");
+    });
 
     // Handle Playlist Builder
     var generatePlaylistButton = document.getElementById("generatePlaylistButton");
     generatePlaylistButton.addEventListener("click", generatePlaylistEmbedCode);
 
     var copyPlaylistEmbedCodeButton = document.getElementById("copyPlaylistEmbedCodeButton");
-    copyPlaylistEmbedCodeButton.addEventListener("click", copyPlaylistEmbedCode);
+    copyPlaylistEmbedCodeButton.addEventListener("click", function(){
+      copyToClipboard("playlistEmbedCodeOutput", "playlistEmbedCopyMsg");
+    });
 
-    var copyPlaylistLink = document.getElementById("playlistCopyLinkButton");
-    copyPlaylistLink.addEventListener("click", copyPlaylistLink);
+    var copyPlaylistLinkButton = document.getElementById("playlistCopyLinkButton");
+    copyPlaylistLinkButton.addEventListener("click", function(){
+      copyToClipboard("playlistLinkOutput", "playlistLinkCopyMsg");
+    });
 
     var video_start = document.getElementById("videoStart");
     var video_end = document.getElementById("videoEnd");
@@ -178,28 +186,21 @@ function generatePlaylistEmbedCode() {
 }
 
   
-  function copyEmbedCode() {
-    var embedCodeOutput = document.getElementById("embedCodeOutput");
-    embedCodeOutput.select();
-    document.execCommand("copy");
+function copyToClipboard(sourceId, messageId) {
+  var text = document.getElementById(sourceId).value;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      var msg = document.getElementById(messageId);
+      if (msg) {
+        msg.textContent = 'Copied!';
+        setTimeout(function(){ msg.textContent = ''; }, 2000);
+      }
+    });
+  } else {
+    var temp = document.getElementById(sourceId);
+    temp.select();
+    document.execCommand('copy');
   }
-  
-  function copyLink() {
-    var linkOutput = document.getElementById("linkOutput");
-    linkOutput.select();
-    document.execCommand("copy");
-  }
-
-function copyPlaylistEmbedCode() {
-    var playlistEmbedCodeOutput = document.getElementById("playlistEmbedCodeOutput");
-    playlistEmbedCodeOutput.select();
-    document.execCommand("copy");
-}
-
-function copyPlaylistLink() {
-  var linkOutput = document.getElementById("playlistLinkOutput");
-  linkOutput.select();
-  document.execCommand("copy");
 }
 
 document.getElementById("chaptersLayout").addEventListener("change", function() {
@@ -223,20 +224,23 @@ document.getElementById("chaptersLayout").addEventListener("change", function() 
 // Function to show the selected container
 function showContainer(container) {
   // Hide both containers
-  document.getElementById('embedContainer').style.display = 'none';
-  document.getElementById('playlistContainer').style.display = 'none';
+  document.getElementById('embedContainer').hidden = true;
+  document.getElementById('playlistContainer').hidden = true;
 
   // Show the selected container
   if (container === 'embed') {
-    document.getElementById('embedContainer').style.display = 'block';
+    document.getElementById('embedContainer').hidden = false;
   } else if (container === 'playlist') {
-    document.getElementById('playlistContainer').style.display = 'block';
+    document.getElementById('playlistContainer').hidden = false;
   }
 
-  // Update active button styling
+  // Update active button styling and aria-selected
   document.getElementById('embedButton').classList.remove('active');
   document.getElementById('playlistButton').classList.remove('active');
-  
+
+  document.getElementById('embedButton').setAttribute('aria-selected', container === 'embed');
+  document.getElementById('playlistButton').setAttribute('aria-selected', container === 'playlist');
+
   if (container === 'embed') {
     document.getElementById('embedButton').classList.add('active');
   } else {

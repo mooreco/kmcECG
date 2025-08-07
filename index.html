@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KMC Embed Code Generator</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+  <main>
 
-  <nav>
-    <button id="embedButton" class="active" onclick="showContainer('embed')">Embed Code Generator</button>
-    <button id="playlistButton" onclick="showContainer('playlist')">Playlist Builder</button>
+  <nav role="tablist">
+    <button id="embedButton" class="active" onclick="showContainer('embed')" role="tab" aria-selected="true" aria-controls="embedContainer" type="button">Embed Code Generator</button>
+    <button id="playlistButton" onclick="showContainer('playlist')" role="tab" aria-selected="false" aria-controls="playlistContainer" type="button">Playlist Builder</button>
   </nav>
 
   <div id="embedContainer" class="container">
   <h1>KMC Embed Code Generator</h1>
-  <div class="downloadable-container">
+  <fieldset class="downloadable-container">
+  <legend>Video type</legend>
   <label><input type="radio" name="videoType" value="downloadable" checked> Downloadable</label>
  <label><input type="radio" name="videoType" value="nonDownloadable"> Non-Downloadable</label><br>
-</div>
+</fieldset>
  <label for="entryIdInput">Entry ID:</label>
   <input type="text" id="entryIdInput"> <br>
 
@@ -43,14 +47,16 @@
   
   <h2>Embed Code:</h2>
   <textarea id="embedCodeOutput" rows="5" cols="80" readonly></textarea>
-  <button id="copyEmbedCodeButton" class="copy-button">Copy Embed Code</button>
+  <button id="copyEmbedCodeButton" class="copy-button" type="button">Copy Embed Code</button>
+  <span id="embedCopyMsg" class="sr-only" aria-live="polite"></span>
   
   <h2>Link:</h2>
   <input type="text" id="linkOutput" readonly>
-  <button id="copyLinkButton" class="copy-button">Copy Link</button>
+  <button id="copyLinkButton" class="copy-button" type="button">Copy Link</button>
+  <span id="linkCopyMsg" class="sr-only" aria-live="polite"></span>
   
   </div>
-  <div id="playlistContainer" class="container" style="display: none;">
+  <div id="playlistContainer" class="container" hidden>
   <!-- Playlist Builder Section -->
   <h1>KMC Playlist Builder</h1>
   <label for="playlistIdInput">Playlist ID:</label>
@@ -101,15 +107,15 @@
   
   <h2>Playlist Embed Code:</h2>
   <textarea id="playlistEmbedCodeOutput" rows="5" cols="80" readonly></textarea>
-  <button id="copyPlaylistEmbedCodeButton" class="copy-button">Copy Playlist Embed Code</button>
+  <button id="copyPlaylistEmbedCodeButton" class="copy-button" type="button">Copy Playlist Embed Code</button>
+  <span id="playlistEmbedCopyMsg" class="sr-only" aria-live="polite"></span>
 
   <h2>Playlist Link:</h2>
   <input type="text" id="playlistLinkOutput" readonly>
-  <button id="playlistCopyLinkButton" class="copy-button">Copy Link</button>
+  <button id="playlistCopyLinkButton" class="copy-button" type="button">Copy Link</button>
+  <span id="playlistLinkCopyMsg" class="sr-only" aria-live="polite"></span>
 </div>
-    <script src="script.js"></script>
-    <script>
-
-    </script>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
