@@ -1,11 +1,19 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
+:root {
+  --primary-color: #003a63;
+  --container-bg: #f5f5f5;
+  --button-bg: #003a63;
+  --button-bg-hover: #00284b;
+}
+
 /* General body styling */
 body {
   font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
   padding: 40px 15%;
-  background: linear-gradient(127deg, rgba(101,116,124,1) 0%, rgba(57,91,112,1) 56%, rgba(43,77,106,1) 97%);
+  background: linear-gradient(127deg, #4f758b 0%, #365e8b 56%, #003a63 97%);
 }
 /* Styling for the nav bar */
 nav {
@@ -20,8 +28,8 @@ nav {
 nav button {
   flex: 1;
   padding: 23px;
-  background-color: #888;
-  color: white;
+  background-color: var(--primary-color);
+  color: #fff;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -42,25 +50,28 @@ nav button:last-child {
   border-top-right-radius: 10px;
 }
 
-/* Active button should be black */
+/* Active navigation button */
 nav button.active {
-  background-color: #000; /* Dark black for the active button */
+  background-color: #00284b;
 }
 
 /* Hover state for buttons */
 nav button:hover {
-  background-color: #555; /* Slightly darker gray on hover for inactive buttons */
+  background-color: #004b87;
 }
 
 /* Remove margin between the buttons and the container */
 .container {
   margin-top: 0;
   padding-top: 0;
-  background-color: #dcdcdc;
+  background-color: var(--container-bg);
   padding: 5%;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 10px 15px 30px -8px rgba(0,0,0,0.75);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Remove any spacing between the button and container */
@@ -102,9 +113,9 @@ input[type="text"], input[type="number"] {
 
 /* Focus effect for text and number inputs */
 input[type="text"]:focus, input[type="number"]:focus {
-  border: 1px solid #007BFF;
+  border: 1px solid var(--primary-color);
   background-color: #fff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 5px rgba(0, 58, 99, 0.5);
   outline: none;
 }
 
@@ -154,7 +165,7 @@ input[type="text"]:focus, input[type="number"]:focus {
 /* General button styling */
 button {
   padding: 12px 25px;
-  background-color: #3498db;
+  background-color: var(--primary-color);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -164,7 +175,7 @@ button {
 
 /* Button hover effect */
 button:hover {
-  background-color: #2980b9;
+  background-color: #004b87;
 }
 
 /* Textarea and text input width and resize behavior */
@@ -186,7 +197,7 @@ textarea {
 
 /* Styling for copy buttons */
 .copy-button {
-  background-color: #252525;
+  background-color: var(--button-bg);
   color: white;
   border: none;
   padding: 12px 25px;
@@ -197,7 +208,7 @@ textarea {
 
 /* Hover effect for copy buttons */
 .copy-button:hover {
-  background-color: #444444;
+  background-color: var(--button-bg-hover);
   color: white;
 }
 
@@ -218,7 +229,7 @@ textarea {
 .custom-checkbox .checkbox-style {
   width: 15px;
   height: 15px;
-  border: 2px solid #007BFF;
+  border: 2px solid var(--primary-color);
   border-radius: 4px;
   display: inline-block;
   margin-right: 10px;
@@ -242,8 +253,8 @@ textarea {
 
 /* Checkbox style when checked */
 .custom-checkbox input[type="checkbox"]:checked + .checkbox-style {
-  background-color: #007BFF;
-  border-color: #007BFF;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 /* Show checkmark when checkbox is checked */
@@ -258,7 +269,7 @@ textarea {
   -moz-appearance: none;
   padding: 8px;
   font-size: 14px;
-  border: 1px solid #007BFF;
+  border: 1px solid var(--primary-color);
   border-radius: 5px;
   background-color: white;
   color: #333;
@@ -278,7 +289,7 @@ textarea {
 /* Hover and focus effects for custom select */
 .custom-select:hover,
 .custom-select:focus {
-  border-color: #0056b3;
+  border-color: var(--primary-color);
   background-color: #f0f8ff;
   outline: none;
 }
@@ -290,4 +301,26 @@ textarea {
 
 #embedContainer{
   padding: 5%;
+}
+
+/* Visually hidden class for accessibility messages */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus outline for interactive elements */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
 }
