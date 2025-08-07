@@ -6,6 +6,7 @@
   --container-bg: #f5f5f5;
   --button-bg: #003a63;
   --button-bg-hover: #00284b;
+  --max-width: 900px;
 }
 
 /* General body styling */
@@ -18,10 +19,11 @@ body {
 /* Styling for the nav bar */
 nav {
   display: flex;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   border-radius: 10px 10px 0 0; /* Only round top corners */
   overflow: hidden; /* Ensure buttons stay within the rounded corners */
+  max-width: var(--max-width);
 }
 
 /* Styling for the navigation buttons */
@@ -69,7 +71,7 @@ nav button:hover {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 10px 15px 30px -8px rgba(0,0,0,0.75);
-  max-width: 900px;
+  max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
 }
