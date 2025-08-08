@@ -19,10 +19,12 @@ body {
 /* Styling for the nav bar */
 nav {
   display: flex;
+  width: 100%;
   margin: 0 auto;
   padding: 0;
   border-radius: 10px 10px 0 0; /* Only round top corners */
   overflow: hidden; /* Ensure buttons stay within the rounded corners */
+  box-sizing: border-box;
   max-width: var(--max-width);
 }
 
@@ -35,7 +37,6 @@ nav button {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%;
   text-align: center;
   font-size: 16px;
   border-radius: 0;
@@ -71,6 +72,7 @@ nav button:hover {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 10px 15px 30px -8px rgba(0,0,0,0.75);
+  box-sizing: border-box;
   max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
