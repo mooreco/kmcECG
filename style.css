@@ -1,20 +1,20 @@
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:wght@400;500;700&display=swap');
 
 :root {
-  --primary-color: #003a63;
+  --primary-color: #003A63;
   --container-bg: #f5f5f5;
-  --button-bg: #003a63;
-  --button-bg-hover: #00284b;
+  --button-bg: #365E8B;
+  --button-bg-hover: #4F758B;
   --max-width: 900px;
 }
 
 /* General body styling */
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
   margin: 0;
   padding: 40px 15%;
-  background: linear-gradient(127deg, #4f758b 0%, #365e8b 56%, #003a63 97%);
+  background: linear-gradient(127deg, #91AEC4 0%, #4F758B 56%, #003A63 97%);
 }
 /* Styling for the nav bar */
 nav {
@@ -54,12 +54,12 @@ nav button:last-child {
 
 /* Active navigation button */
 nav button.active {
-  background-color: #00284b;
+  background-color: var(--button-bg);
 }
 
 /* Hover state for buttons */
 nav button:hover {
-  background-color: #004b87;
+  background-color: var(--button-bg-hover);
 }
 
 /* Remove margin between the buttons and the container */
@@ -90,7 +90,7 @@ nav + .container {
 h1 {
   padding-top: 15px;
   margin-top: 0;
-  font-family: Lora, Arial, sans-serif;
+  font-family: 'Lora', serif;
 }
 
 /* Styling for labels */
@@ -177,7 +177,7 @@ button {
 
 /* Button hover effect */
 button:hover {
-  background-color: #004b87;
+  background-color: var(--button-bg);
 }
 
 /* Textarea and text input width and resize behavior */
