@@ -1,41 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var generateButton = document.getElementById("generateButton");
-    generateButton.addEventListener("click", generateEmbedCode);
-  
-    var copyEmbedCodeButton = document.getElementById("copyEmbedCodeButton");
-    copyEmbedCodeButton.addEventListener("click", function(){
-      copyToClipboard("embedCodeOutput", "embedCopyMsg");
-    });
-
-    var copyLinkButton = document.getElementById("copyLinkButton");
-    copyLinkButton.addEventListener("click", function(){
-      copyToClipboard("linkOutput", "linkCopyMsg");
-    });
-
-    // Handle Playlist Builder
-    var generatePlaylistButton = document.getElementById("generatePlaylistButton");
-    generatePlaylistButton.addEventListener("click", generatePlaylistEmbedCode);
-
-    var copyPlaylistEmbedCodeButton = document.getElementById("copyPlaylistEmbedCodeButton");
-    copyPlaylistEmbedCodeButton.addEventListener("click", function(){
-      copyToClipboard("playlistEmbedCodeOutput", "playlistEmbedCopyMsg");
-    });
-
-    var copyPlaylistLinkButton = document.getElementById("playlistCopyLinkButton");
-    copyPlaylistLinkButton.addEventListener("click", function(){
-      copyToClipboard("playlistLinkOutput", "playlistLinkCopyMsg");
-    });
-
-    var video_start = document.getElementById("videoStart");
-    var video_end = document.getElementById("videoEnd");
-
-    timeStampValidate(video_start)
-    timeStampValidate(video_end)
-
-
-  });
-
-function timeStampValidate(element) {
+function formatTimeInput(element) {
   element.addEventListener("input", function (e) {
     let value = this.value.replace(/\D/g, ""); // Remove non-numeric characters
     let formattedValue = "";
@@ -55,39 +18,33 @@ function timeStampValidate(element) {
   });
 }
 
-
 function getSeconds(inputValue) {
   var time = inputValue.trim();
 
   const timePattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
-    
-    if (!timePattern.test(time)) {
-      console.log("Invalid time format! Please enter in HH:MM:SS format.");
-      return;
-    }
 
-    // Split into hours, minutes, and seconds
-    const [hours, minutes, seconds] = time.split(":").map(Number);
-    const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
-    console.log("Video Timestamp (Seconds):", totalSeconds);
-    return totalSeconds;
+  if (!timePattern.test(time)) {
+    console.log("Invalid time format! Please enter in HH:MM:SS format.");
+    return;
+  }
 
+  // Split into hours, minutes, and seconds
+  const [hours, minutes, seconds] = time.split(":").map(Number);
+  const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+  console.log("Video Timestamp (Seconds):", totalSeconds);
+  return totalSeconds;
 }
-  
-  function generateEmbedCode() {
+
+function generateEmbedCode() {
   var entryId = document.getElementById("entryIdInput").value;
   var videoType = document.querySelector('input[name="videoType"]:checked').value;
-  
-  var playerId = "kaltura_player_" + (new Date()).getTime(); // Unique player ID for each generation
-  
+
+  var playerId = "kaltura_player_" + new Date().getTime(); // Unique player ID for each generation
+
   var uiconf_id = videoType === "downloadable" ? "57429403" : "56813562"; // Adjusted based on video type
 
-
-  
-
-
-  var videotContainer =  document.getElementById("videoPreview");
-  videotContainer.innerHTML = '';  // Clear previous preview if any
+  var videotContainer = document.getElementById("videoPreview");
+  videotContainer.innerHTML = ""; // Clear previous preview if any
   // Width and Height
   var iframeWidth = document.getElementById("videoWidth").value;
   var iframeHeight = document.getElementById("videoHeight").value;
@@ -96,167 +53,119 @@ function getSeconds(inputValue) {
   var start_at = getSeconds(document.getElementById("videoStart").value);
   var end_at = getSeconds(document.getElementById("videoEnd").value);
 
-  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/${uiconf_id}?iframeembed=true&entry_id=${entryId}`
-  if(start_at > 0) {
-    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayFrom]=${start_at}`
+  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/${uiconf_id}?iframeembed=true&entry_id=${entryId}`;
+  if (start_at > 0) {
+    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayFrom]=${start_at}`;
   }
 
-  if(end_at > 0) {
-    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayTo]=${end_at}`
+  if (end_at > 0) {
+    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayTo]=${end_at}`;
   }
-  
-  var widthValue = (iframeWidth || '').toString();
-  var heightValue = (iframeHeight || '').toString();
-  var styleAttr = `width: ${widthValue}${widthValue.includes('%') || widthValue.includes('px') ? '' : 'px'}; height: ${heightValue}${heightValue.includes('%') || heightValue.includes('px') ? '' : 'px'}`;
+
+  var widthValue = (iframeWidth || "").toString();
+  var heightValue = (iframeHeight || "").toString();
+  var styleAttr = `width: ${widthValue}${
+    widthValue.includes("%") || widthValue.includes("px") ? "" : "px"
+  }; height: ${heightValue}${
+    heightValue.includes("%") || heightValue.includes("px") ? "" : "px"
+  }`;
 
   var embedCode = `<iframe id="${playerId}" type="text/javascript" src="${srcURL}" style="${styleAttr}" width="${iframeWidth}" height="${iframeHeight}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0" title="Kaltura video player"></iframe>`;
-  var link = srcURL;
 
   document.getElementById("embedCodeOutput").value = embedCode;
-  document.getElementById("linkOutput").value = link;
+  document.getElementById("linkOutput").value = srcURL;
 
-
-
-  var iframe = document.createElement('iframe');
-    iframe.setAttribute('type', 'text/javascript');
-    iframe.setAttribute('src', srcURL);
-    iframe.setAttribute('style', styleAttr);
-    iframe.setAttribute('width', iframeWidth);
-    iframe.setAttribute('height', iframeHeight);
-    iframe.setAttribute('allowfullscreen', 'allowfullscreen');
-    iframe.setAttribute('webkitallowfullscreen', 'webkitallowfullscreen');
-    iframe.setAttribute('mozallowfullscreen', 'mozallowfullscreen');
-    iframe.setAttribute('allow', 'autoplay *; fullscreen *; encrypted-media *');
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('title', 'Kaltura video player');
-
-  // Append the iframe to the preview container
-  videotContainer.appendChild(iframe);
+  videotContainer.innerHTML = embedCode;
 }
 
-function generatePlaylistEmbedCode() {
+function generatePlaylistEmbed() {
   var playlistId = document.getElementById("playlistIdInput").value;
-  var playerId = "kaltura_playlist_" + (new Date()).getTime(); // Unique player ID for each playlist generation
-
-  // Flashvars customization options
-  var flashvars = '';
-
-  if (document.getElementById("nextPrev").checked) {
-      flashvars += '&flashvars[nextPrevBtn.plugin]=true';
-  } else {
-      flashvars += '&flashvars[nextPrevBtn.plugin]=false';
-  }
-
-  if (document.getElementById("scrubberPreview").checked) {
-      flashvars += '&flashvars[scrubber.sliderPreview]=true';
-  } else {
-      flashvars += '&flashvars[scrubber.sliderPreview]=false';
-  }
-
-
-  // Chapters layout
+  var frameWidth = document.getElementById("frameWidth").value;
+  var frameHeight = document.getElementById("frameHeight").value;
+  var nextPrev = document.getElementById("nextPrev").checked;
+  var scrubberPreview = document.getElementById("scrubberPreview").checked;
   var chaptersLayout = document.getElementById("chaptersLayout").value;
-  //flashvars += '&flashvars[chapters.layout]=' + chaptersLayout;
+  var playbackSpeed = document.getElementById("playbackSpeed").value;
 
-  // Playback speed control
-  var playbackSpeedControl = document.getElementById("playbackSpeed").value;
-  flashvars += '&flashvars[playbackRateSelector.plugin]=' + playbackSpeedControl;
+  var uiconfId = "57079362"; // default uiconf for playlist
 
-  var player = chaptersLayout == "vertical" ? "44360632" : "44360622";
+  var flashvars = {};
+  flashvars["streamerType"] = "hls";
+  flashvars["playlistAPI.kpl0Id"] = playlistId;
+  flashvars["chapters.layout"] = chaptersLayout;
+  flashvars["playbackRateSelector.plugin"] = playbackSpeed;
+  flashvars["controlBarContainer.plugin"] = true;
+  flashvars["largePlay.plugin"] = true;
+  flashvars["loadingSpinner.plugin"] = true;
+  flashvars["sourceSelector.plugin"] = true;
+  flashvars["dualScreen.plugin"] = true;
+  flashvars["KalturaSupport.LeadWithHLSOnFlash"] = true;
+  flashvars["IframeCustomPluginCss.parent"] = "dot";
+  flashvars["IframeCustomPluginCss.iframeHTML5Css"] = "https://www.byui.edu/prebuilt/css/kaltura.css";
+  flashvars["scrubber.plugin"] = scrubberPreview;
+  flashvars["nextPrevBtn.plugin"] = nextPrev;
 
-  var iframeWidth = document.getElementById("frameWidth").value;
+  var flashvarsStr = "";
+  for (var key in flashvars) {
+    flashvarsStr += `&flashvars[${key}]=${flashvars[key]}`;
+  }
 
-  var iframeHeight = document.getElementById("frameHeight").value;
-  var url = 'https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/' + player + '?iframeembed=true&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars;
-  // Playlist embed code
-  var playlistWidth = (iframeWidth || '').toString();
-  var playlistHeight = (iframeHeight || '').toString();
-  var playlistStyle = 'width: ' + (playlistWidth.includes('%') || playlistWidth.includes('px') ? playlistWidth : playlistWidth + 'px') + '; height: ' + (playlistHeight.includes('%') || playlistHeight.includes('px') ? playlistHeight : playlistHeight + 'px');
+  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/${uiconfId}/partner_id/1157612?iframeembed=true${flashvarsStr}`;
 
-  var playlistEmbedCode = '<iframe id="' + playerId + '" type="text/javascript" src="'+url+'" style="' + playlistStyle + '" width="'+iframeWidth+'" height="'+iframeHeight+'" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0" title="Kaltura playlist player"></iframe>';
+  var embedCode = `<iframe src="${srcURL}" width="${frameWidth}" height="${frameHeight}" allowfullscreen webkitallowfullscreen mozallowfullscreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>`;
 
-  document.getElementById("playlistEmbedCodeOutput").value = playlistEmbedCode;
-  document.getElementById("playlistLinkOutput").value = url;
-  
-  var playlistContainer =  document.getElementById("playlistPreview");
-  playlistContainer.innerHTML = '';  // Clear previous preview if any
-
-  var iframe = document.createElement('iframe');
-    iframe.setAttribute('src', 'https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/' + player + '?iframeembed=true&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars);
-    iframe.setAttribute('width', iframeWidth);
-    iframe.setAttribute('height', iframeHeight);
-    iframe.setAttribute('allowfullscreen', 'allowfullscreen');
-    iframe.setAttribute('webkitallowfullscreen', 'webkitallowfullscreen');
-    iframe.setAttribute('mozallowfullscreen', 'mozallowfullscreen');
-    iframe.setAttribute('allow', 'autoplay *; fullscreen *; encrypted-media *');
-    iframe.setAttribute('frameborder', '0');
-
-    // Append the iframe to the preview container
-    playlistContainer.appendChild(iframe);
-
+  document.getElementById("playlistEmbedCodeOutput").value = embedCode;
+  document.getElementById("playlistLinkOutput").value = srcURL;
+  document.getElementById("playlistPreview").innerHTML = embedCode;
 }
 
-  
-function copyToClipboard(sourceId, messageId) {
-  var text = document.getElementById(sourceId).value;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(function() {
-      var msg = document.getElementById(messageId);
-      if (msg) {
-        msg.textContent = 'Copied!';
-        setTimeout(function(){ msg.textContent = ''; }, 2000);
-      }
-    });
-  } else {
-    var temp = document.getElementById(sourceId);
-    temp.select();
-    document.execCommand('copy');
-  }
+function showContainer(containerId) {
+  // Hide all containers
+  document.getElementById("embedContainer").hidden = true;
+  document.getElementById("playlistContainer").hidden = true;
+
+  // Deactivate all buttons
+  document.getElementById("embedButton").classList.remove("active");
+  document.getElementById("playlistButton").classList.remove("active");
+  document.getElementById("embedButton").setAttribute("aria-selected", "false");
+  document.getElementById("playlistButton").setAttribute("aria-selected", "false");
+
+  // Show the selected container and activate the corresponding button
+  document.getElementById(containerId + "Container").hidden = false;
+  document.getElementById(containerId + "Button").classList.add("active");
+  document.getElementById(containerId + "Button").setAttribute("aria-selected", "true");
 }
 
-document.getElementById("chaptersLayout").addEventListener("change", function() {
-  // Get the selected layout value
-  var selectedLayout = this.value;
-  // Log or perform any action on change
-  if(selectedLayout == "vertical") {
-    document.getElementById("frameWidth").value = 400;
-    document.getElementById("frameHeight").value = 600;
+function handleCopyClick(event) {
+  const button = event.target;
+  const originalText = button.textContent;
+  // Use previousElementSibling to get the input/textarea right before the button
+  const textToCopy = button.previousElementSibling.value;
 
-  } else {
-    document.getElementById("frameWidth").value = 900;
-    document.getElementById("frameHeight").value = 400;
-  }
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    button.textContent = 'Copied!';
+    setTimeout(() => {
+      button.textContent = originalText;
+    }, 2000); // Revert back after 2 seconds
+  }).catch(err => {
+    console.error('Failed to copy text: ', err);
+    // Optionally, provide feedback to the user that the copy failed
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  var timeInputs = document.querySelectorAll(".time-input");
+  timeInputs.forEach(formatTimeInput);
+
+  document.getElementById("generateButton").addEventListener("click", generateEmbedCode);
+  document.getElementById("generatePlaylistButton").addEventListener("click", generatePlaylistEmbed);
+
+  // Set up copy buttons
+  const copyButtons = document.querySelectorAll('.copy-button');
+  copyButtons.forEach(button => {
+    button.addEventListener('click', handleCopyClick);
+  });
   
+  // Initialize with the embed container visible
+  showContainer('embed');
 });
-
-
-
-
-// Function to show the selected container
-function showContainer(container) {
-  // Hide both containers
-  document.getElementById('embedContainer').hidden = true;
-  document.getElementById('playlistContainer').hidden = true;
-
-  // Show the selected container
-  if (container === 'embed') {
-    document.getElementById('embedContainer').hidden = false;
-  } else if (container === 'playlist') {
-    document.getElementById('playlistContainer').hidden = false;
-  }
-
-  // Update active button styling and aria-selected
-  document.getElementById('embedButton').classList.remove('active');
-  document.getElementById('playlistButton').classList.remove('active');
-
-  document.getElementById('embedButton').setAttribute('aria-selected', container === 'embed');
-  document.getElementById('playlistButton').setAttribute('aria-selected', container === 'playlist');
-
-  if (container === 'embed') {
-    document.getElementById('embedButton').classList.add('active');
-  } else {
-    document.getElementById('playlistButton').classList.add('active');
-  }
-}
-
-  
