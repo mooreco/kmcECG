@@ -80,7 +80,7 @@ function getSeconds(inputValue) {
   
   var playerId = "kaltura_player_" + (new Date()).getTime(); // Unique player ID for each generation
   
-  var uiconf_id = videoType === "downloadable" ? "47306393" : "42438262"; // Adjusted based on video type
+  var uiconf_id = videoType === "downloadable" ? "57482403" : "57482393"; // Adjusted based on video type
 
 
   
