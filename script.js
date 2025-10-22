@@ -105,7 +105,11 @@ function getSeconds(inputValue) {
     srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayTo]=${end_at}`
   }
   
-  var embedCode = `<iframe id="${playerId}" src="${srcURL}" width="${iframeWidth}" height="${iframeHeight}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>`;
+  var widthValue = (iframeWidth || '').toString();
+  var heightValue = (iframeHeight || '').toString();
+  var styleAttr = `width: ${widthValue}${widthValue.includes('%') || widthValue.includes('px') ? '' : 'px'}; height: ${heightValue}${heightValue.includes('%') || heightValue.includes('px') ? '' : 'px'}`;
+
+  var embedCode = `<iframe id="${playerId}" type="text/javascript" src="${srcURL}" style="${styleAttr}" width="${iframeWidth}" height="${iframeHeight}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0" title="Kaltura video player"></iframe>`;
   var link = srcURL;
 
   document.getElementById("embedCodeOutput").value = embedCode;
@@ -114,7 +118,9 @@ function getSeconds(inputValue) {
 
 
   var iframe = document.createElement('iframe');
+    iframe.setAttribute('type', 'text/javascript');
     iframe.setAttribute('src', srcURL);
+    iframe.setAttribute('style', styleAttr);
     iframe.setAttribute('width', iframeWidth);
     iframe.setAttribute('height', iframeHeight);
     iframe.setAttribute('allowfullscreen', 'allowfullscreen');
@@ -122,6 +128,7 @@ function getSeconds(inputValue) {
     iframe.setAttribute('mozallowfullscreen', 'mozallowfullscreen');
     iframe.setAttribute('allow', 'autoplay *; fullscreen *; encrypted-media *');
     iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('title', 'Kaltura video player');
 
   // Append the iframe to the preview container
   videotContainer.appendChild(iframe);
@@ -162,7 +169,11 @@ function generatePlaylistEmbedCode() {
   var iframeHeight = document.getElementById("frameHeight").value;
   var url = 'https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/' + player + '?iframeembed=true&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars;
   // Playlist embed code
-  var playlistEmbedCode = '<iframe id="' + playerId + '" src="'+url+'" width="'+iframeWidth+'" height="'+iframeHeight+'" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>';
+  var playlistWidth = (iframeWidth || '').toString();
+  var playlistHeight = (iframeHeight || '').toString();
+  var playlistStyle = 'width: ' + (playlistWidth.includes('%') || playlistWidth.includes('px') ? playlistWidth : playlistWidth + 'px') + '; height: ' + (playlistHeight.includes('%') || playlistHeight.includes('px') ? playlistHeight : playlistHeight + 'px');
+
+  var playlistEmbedCode = '<iframe id="' + playerId + '" type="text/javascript" src="'+url+'" style="' + playlistStyle + '" width="'+iframeWidth+'" height="'+iframeHeight+'" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0" title="Kaltura playlist player"></iframe>';
 
   document.getElementById("playlistEmbedCodeOutput").value = playlistEmbedCode;
   document.getElementById("playlistLinkOutput").value = url;
