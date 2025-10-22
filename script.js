@@ -79,7 +79,7 @@ function getSeconds(inputValue) {
   var videoType = document.querySelector('input[name="videoType"]:checked').value;
   
   var playerId = "kaltura_player_" + (new Date()).getTime(); // Unique player ID for each generation
-
+  
   var uiconf_id = videoType === "downloadable" ? "57482403" : "57482393"; // Adjusted based on video type
 
 
@@ -182,9 +182,7 @@ function generatePlaylistEmbedCode() {
   playlistContainer.innerHTML = '';  // Clear previous preview if any
 
   var iframe = document.createElement('iframe');
-    iframe.setAttribute('type', 'text/javascript');
     iframe.setAttribute('src', 'https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/' + player + '?iframeembed=true&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars);
-    iframe.setAttribute('style', playlistStyle);
     iframe.setAttribute('width', iframeWidth);
     iframe.setAttribute('height', iframeHeight);
     iframe.setAttribute('allowfullscreen', 'allowfullscreen');
@@ -192,7 +190,6 @@ function generatePlaylistEmbedCode() {
     iframe.setAttribute('mozallowfullscreen', 'mozallowfullscreen');
     iframe.setAttribute('allow', 'autoplay *; fullscreen *; encrypted-media *');
     iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('title', 'Kaltura playlist player');
 
     // Append the iframe to the preview container
     playlistContainer.appendChild(iframe);
