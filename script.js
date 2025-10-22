@@ -79,8 +79,8 @@ function getSeconds(inputValue) {
   var videoType = document.querySelector('input[name="videoType"]:checked').value;
   
   var playerId = "kaltura_player_" + (new Date()).getTime(); // Unique player ID for each generation
-  
-  var uiconf_id = videoType === "downloadable" ? "47306393" : "42438262"; // Adjusted based on video type
+
+  var uiconf_id = videoType === "downloadable" ? "57482403" : "57482393"; // Adjusted based on video type
 
 
   
@@ -96,7 +96,7 @@ function getSeconds(inputValue) {
   var start_at = getSeconds(document.getElementById("videoStart").value);
   var end_at = getSeconds(document.getElementById("videoEnd").value);
 
-  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/${uiconf_id}/partner_id/1157612?iframeembed=true&playerId=${playerId}&entry_id=${entryId}`
+  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/${uiconf_id}?iframeembed=true&entry_id=${entryId}`
   if(start_at > 0) {
     srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayFrom]=${start_at}`
   }
@@ -105,7 +105,11 @@ function getSeconds(inputValue) {
     srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayTo]=${end_at}`
   }
   
-  var embedCode = `<iframe id="${playerId}" src="${srcURL}" width="${iframeWidth}" height="${iframeHeight}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>`;
+  var widthValue = (iframeWidth || '').toString();
+  var heightValue = (iframeHeight || '').toString();
+  var styleAttr = `width: ${widthValue}${widthValue.includes('%') || widthValue.includes('px') ? '' : 'px'}; height: ${heightValue}${heightValue.includes('%') || heightValue.includes('px') ? '' : 'px'}`;
+
+  var embedCode = `<iframe id="${playerId}" type="text/javascript" src="${srcURL}" style="${styleAttr}" width="${iframeWidth}" height="${iframeHeight}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0" title="Kaltura video player"></iframe>`;
   var link = srcURL;
 
   document.getElementById("embedCodeOutput").value = embedCode;
@@ -114,7 +118,9 @@ function getSeconds(inputValue) {
 
 
   var iframe = document.createElement('iframe');
+    iframe.setAttribute('type', 'text/javascript');
     iframe.setAttribute('src', srcURL);
+    iframe.setAttribute('style', styleAttr);
     iframe.setAttribute('width', iframeWidth);
     iframe.setAttribute('height', iframeHeight);
     iframe.setAttribute('allowfullscreen', 'allowfullscreen');
@@ -122,6 +128,7 @@ function getSeconds(inputValue) {
     iframe.setAttribute('mozallowfullscreen', 'mozallowfullscreen');
     iframe.setAttribute('allow', 'autoplay *; fullscreen *; encrypted-media *');
     iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('title', 'Kaltura video player');
 
   // Append the iframe to the preview container
   videotContainer.appendChild(iframe);
@@ -160,9 +167,13 @@ function generatePlaylistEmbedCode() {
   var iframeWidth = document.getElementById("frameWidth").value;
 
   var iframeHeight = document.getElementById("frameHeight").value;
-  var url = 'https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/'+ player +'/partner_id/1157612?iframeembed=true&playerId=' + playerId + '&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars;
+  var url = 'https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/' + player + '?iframeembed=true&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars;
   // Playlist embed code
-  var playlistEmbedCode = '<iframe id="' + playerId + '" src="'+url+'" width="'+iframeWidth+'" height="'+iframeHeight+'" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0"></iframe>';
+  var playlistWidth = (iframeWidth || '').toString();
+  var playlistHeight = (iframeHeight || '').toString();
+  var playlistStyle = 'width: ' + (playlistWidth.includes('%') || playlistWidth.includes('px') ? playlistWidth : playlistWidth + 'px') + '; height: ' + (playlistHeight.includes('%') || playlistHeight.includes('px') ? playlistHeight : playlistHeight + 'px');
+
+  var playlistEmbedCode = '<iframe id="' + playerId + '" type="text/javascript" src="'+url+'" style="' + playlistStyle + '" width="'+iframeWidth+'" height="'+iframeHeight+'" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0" title="Kaltura playlist player"></iframe>';
 
   document.getElementById("playlistEmbedCodeOutput").value = playlistEmbedCode;
   document.getElementById("playlistLinkOutput").value = url;
@@ -171,7 +182,9 @@ function generatePlaylistEmbedCode() {
   playlistContainer.innerHTML = '';  // Clear previous preview if any
 
   var iframe = document.createElement('iframe');
-    iframe.setAttribute('src', 'https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/'+ player +'/partner_id/1157612?iframeembed=true&playerId=' + playerId + '&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars);
+    iframe.setAttribute('type', 'text/javascript');
+    iframe.setAttribute('src', 'https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/' + player + '?iframeembed=true&flashvars[playlistAPI.kpl0Id]=' + playlistId + flashvars);
+    iframe.setAttribute('style', playlistStyle);
     iframe.setAttribute('width', iframeWidth);
     iframe.setAttribute('height', iframeHeight);
     iframe.setAttribute('allowfullscreen', 'allowfullscreen');
@@ -179,6 +192,7 @@ function generatePlaylistEmbedCode() {
     iframe.setAttribute('mozallowfullscreen', 'mozallowfullscreen');
     iframe.setAttribute('allow', 'autoplay *; fullscreen *; encrypted-media *');
     iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('title', 'Kaltura playlist player');
 
     // Append the iframe to the preview container
     playlistContainer.appendChild(iframe);
