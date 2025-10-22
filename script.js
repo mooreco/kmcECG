@@ -79,7 +79,7 @@ function getSeconds(inputValue) {
   var videoType = document.querySelector('input[name="videoType"]:checked').value;
   
   var playerId = "kaltura_player_" + (new Date()).getTime(); // Unique player ID for each generation
-
+  
   var uiconf_id = videoType === "downloadable" ? "57482403" : "57482393"; // Adjusted based on video type
 
 
