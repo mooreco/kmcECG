@@ -20,12 +20,17 @@ function formatTimeInput(element) {
 
 function getSeconds(inputValue) {
   var time = inputValue.trim();
+  
+  // Return 0 for empty input
+  if (time === "") {
+    return 0;
+  }
 
   const timePattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
 
   if (!timePattern.test(time)) {
     console.log("Invalid time format! Please enter in HH:MM:SS format.");
-    return;
+    return 0; // Changed from return; to return 0;
   }
 
   // Split into hours, minutes, and seconds
@@ -55,11 +60,11 @@ function generateEmbedCode() {
 
   var srcURL = `https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/${uiconf_id}?iframeembed=true&entry_id=${entryId}`;
   if (start_at > 0) {
-    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayFrom]=${start_at}`;
+    srcURL = srcURL + `&kalturaSeekFrom=${start_at}`;
   }
 
   if (end_at > 0) {
-    srcURL = srcURL + `&flashvars[mediaProxy.mediaPlayTo]=${end_at}`;
+    srcURL = srcURL + `&kalturaClipTo=${end_at}`;
   }
 
   var widthValue = (iframeWidth || "").toString();
