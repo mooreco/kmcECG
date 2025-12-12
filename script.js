@@ -41,12 +41,15 @@ function getSeconds(inputValue) {
 }
 
 function generateEmbedCode() {
-  var entryId = document.getElementById("entryIdInput").value;
-  var videoType = document.querySelector('input[name="videoType"]:checked').value;
+  var entryId = document.getElementById("entryIdInput").value.trim();
+  var videoType = document.getElementById("videoTypeSelect").value;
 
-  var playerId = "kaltura_player_" + new Date().getTime(); // Unique player ID for each generation
-
-  var uiconf_id = videoType === "downloadable" ? "57429403" : "56813562"; // Adjusted based on video type
+  var uiconf_id =
+    videoType === "downloadable"
+      ? "57429403"
+      : videoType === "365"
+        ? "56814522"
+        : "56813562"; // Adjusted based on video type
 
   var videotContainer = document.getElementById("videoPreview");
   videotContainer.innerHTML = ""; // Clear previous preview if any
@@ -58,7 +61,7 @@ function generateEmbedCode() {
   var start_at = getSeconds(document.getElementById("videoStart").value);
   var end_at = getSeconds(document.getElementById("videoEnd").value);
 
-  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/${uiconf_id}?iframeembed=true&entry_id=${entryId}`;
+  var srcURL = `https://cdnapisec.kaltura.com/p/1157612/embedPlaykitJs/uiconf_id/${uiconf_id}?iframeembed=true&entry_id=${encodeURIComponent(entryId)}`;
   if (start_at > 0) {
     srcURL = srcURL + `&kalturaSeekFrom=${start_at}`;
   }
@@ -75,7 +78,7 @@ function generateEmbedCode() {
     heightValue.includes("%") || heightValue.includes("px") ? "" : "px"
   }`;
 
-  var embedCode = `<iframe id="${playerId}" type="text/javascript" src="${srcURL}" style="${styleAttr}" width="${iframeWidth}" height="${iframeHeight}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0" title="Kaltura video player"></iframe>`;
+  var embedCode = `<iframe type="text/javascript" src='${srcURL}' style="${styleAttr}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" frameborder="0" title="Kaltura video player"></iframe>`;
 
   document.getElementById("embedCodeOutput").value = embedCode;
   document.getElementById("linkOutput").value = srcURL;

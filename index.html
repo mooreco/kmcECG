@@ -18,8 +18,12 @@
   <h1>KMC Embed Code Generator</h1>
   <fieldset class="downloadable-container">
   <legend>Video type</legend>
-  <label><input type="radio" name="videoType" value="downloadable" checked> Downloadable</label>
- <label><input type="radio" name="videoType" value="nonDownloadable"> Non-Downloadable</label><br>
+  <label for="videoTypeSelect">Video type:</label>
+  <select id="videoTypeSelect">
+    <option value="downloadable" selected>Downloadable</option>
+    <option value="nonDownloadable">Non-Downloadable</option>
+    <option value="365">365 video</option>
+  </select><br>
 </fieldset>
  <label for="entryIdInput">Entry ID:</label>
   <input type="text" id="entryIdInput"> <br>
@@ -34,10 +38,10 @@
 
   <div class="dimensions-container">
     <label for="videoStart">Start at:</label>
-    <input type="text" id="videoStart" placeholder="HH:MM:SS" maxlength="8" size="10">
+    <input type="text" id="videoStart" class="time-input" placeholder="HH:MM:SS" maxlength="8" size="10">
 
     <label for="videoEnd">End at:</label>
-    <input type="text" id="videoEnd" placeholder="HH:MM:SS" maxlength="8" size="10">
+    <input type="text" id="videoEnd" class="time-input" placeholder="HH:MM:SS" maxlength="8" size="10">
   </div>
 
   <button id="generateButton">Generate</button>
